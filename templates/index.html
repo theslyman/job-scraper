@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bahrain Job Listings (Last 3 Days)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Bahrain Job Listings (Last 3 Days)</h1>
+    <form method="GET" action="/">
+        <label for="source">Filter by Source:</label>
+        <select name="source" id="source">
+            <option value="">All</option>
+            <option value="Expatriates">Expatriates</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Google">Google Jobs</option>
+            <!-- Add other sources as needed -->
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+    <div class="job-listings">
+        {{range .}}
+        <div class="job-card">
+            <h2>{{.Title}}</h2>
+            <button class="view-more">View More</button>
+            <div class="job-details">
+                <p><strong>Description:</strong><br/> {{.Description | safeHTML}}</p>
+                <p><strong>Type:</strong> {{.Type}}</p>
+                <p><strong>Requirements:</strong> {{.Requirements}}</p>
+                <p><strong>Contact:</strong> {{.Email}} / {{.Phone}}</p>
+                <p><strong>Date Published:</strong> {{.DatePublished | formatDate}}</p>
+                <p><strong>Source:</strong> <a href="{{.Source}}" target="_blank">Visit</a></p>
+            </div>
+        </div>
+        {{else}}
+        <p>No job listings found in the last 3 days.</p>
+        {{end}}
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewMoreButtons = document.querySelectorAll('.view-more');
+            viewMoreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const jobDetails = this.nextElementSibling;
+                    if (jobDetails.style.display === 'none' || jobDetails.style.display === '') {
+                        jobDetails.style.display = 'block';
+                        this.textContent = 'View Less';
+                    } else {
+                        jobDetails.style.display = 'none';
+                        this.textContent = 'View More';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
