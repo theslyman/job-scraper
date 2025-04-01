@@ -11,8 +11,9 @@ import (
 func main() {
 	config.ConnectDB()
 
-	go scraper.StartScraper()         // Expatriates scraper
-	go scraper.StartLinkedInScraper() // LinkedIn scraper
+	// go scraper.StartScraper() // Expatriates scraper
+	// go scraper.StartLinkedInScraper() // LinkedIn scraper
+	go scraper.StartOpenSooqScraper() // OpenSooq scraper
 
 	router := routes.SetupRouter()
 

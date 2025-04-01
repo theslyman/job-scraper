@@ -14,5 +14,6 @@ type Job struct {
 	Email         string
 	Phone         string
 	DatePublished time.Time
+	DateScraped   time.Time
 	Source        string
 }
